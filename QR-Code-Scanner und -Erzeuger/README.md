@@ -1,0 +1,1 @@
+Projekt: QR-Code-Scanner und -Erzeuger
