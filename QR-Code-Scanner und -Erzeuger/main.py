@@ -1,8 +1,8 @@
 import cv2
 import qrcode
 
-from PyQt5.QtWidgets import *
-from PyQt5 import uic, QtGui
+from PyQt6.QtWidgets import *
+from PyQt6 import uic, QtGui
 
 class Program(QMainWindow):
 
