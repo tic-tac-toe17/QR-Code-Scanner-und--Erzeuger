@@ -112,22 +112,33 @@ class QRCodeApp(ctk.CTk):
                 print(f"QR-Code gespeichert unter: {file_path}")
 
     def upload_qr_image(self):
-        # Datei-Dialog zum Hochladen eines Bildes
-        file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.png;*.jpg;*.jpeg")])
+        try:
+            # Datei-Dialog zum Hochladen eines Bildes
+            file_path = filedialog.askopenfilename(
+                filetypes=[("Image files", "*.png;*.jpg;*.jpeg")]
+            )
 
-        if file_path:
-            self.current_file = file_path
+            if file_path:
+                self.current_file = file_path
 
-            # Lade das Bild mit PIL
-            image = Image.open(self.current_file)
-            image = image.resize((300, 300), Image.ANTIALIAS)  # Bild skalieren
+                # Lade das Bild mit PIL
+                image = Image.open(self.current_file)
+                image = image.resize((300, 300), Image.ANTIALIAS)  # Bild skalieren
 
-            # Konvertiere das PIL-Image in ein PhotoImage-Format, das in Tkinter verwendet werden kann
-            tk_image = ctk.CTkImage(image, size=(300, 300))
+                # Konvertiere das PIL-Image in ein CTkImage-Format, das in customtkinter verwendet werden kann
+                tk_image = ctk.CTkImage(image, size=(300, 300))
 
-            # Setze das Bild in der Label-Anzeige
-            self.qr_label.configure(image=tk_image)
-            self.qr_label.image = tk_image  # Referenz speichern, um das Bild anzuzeigen
+                # Setze das Bild in der Label-Anzeige
+                self.qr_label.configure(image=tk_image)
+                self.qr_label.image = tk_image  # Referenz speichern, um das Bild anzuzeigen
+
+                # Versuche, den QR-Code im hochgeladenen Bild zu scannen
+                self.scan_qr_code(self.current_file)
+
+        except Exception as e:
+            # Fehlerbehandlung: Zeige eine Fehlermeldung, wenn etwas schiefgeht
+            messagebox.showerror("Fehler",
+                                 f"Beim Hochladen oder Verarbeiten des Bildes ist ein Fehler aufgetreten: {str(e)}")
 
     def scan_qr_code(self, file_path):
         # Bild mit OpenCV laden
