@@ -4,6 +4,6 @@ link = 'https://moodle.bildung-lsa.de/gym-scholl-magdeburg/pluginfile.php/108149
 
 qr_code = qrcode.make(link)
 
-qr_code.save('Laurin_Faul.png')
+qr_code.save('Test.png')
 
 print("QR-Code generated successfully")
